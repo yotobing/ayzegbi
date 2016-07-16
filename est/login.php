@@ -13,7 +13,7 @@ pass: <input type="password" name="pass"><br>
 <input type="submit">
 </form>
 
-
+<a href='ewaform.php'>Sign Up</a>
 
 </body>
 </html>

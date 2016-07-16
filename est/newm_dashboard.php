@@ -6,6 +6,10 @@ define('DB_PASSWORD', '');
 define('DB_DATABASE', 'est');
 $conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 
+if($_SESSION['user'] == null){
+	echo "You're not logged in";
+}
+else{
 echo "WELCOME FUTUREEEEEEEEEEEE LIDER!!!<br><br>";
 echo "Welcome ".$_SESSION['user']."<br><br>";
 
@@ -47,5 +51,6 @@ else if($fgd == 2 && $intv == 2){
 	echo "Congratulations, you're accepted as an AIESECer.<br>";
 }
 
-
+echo "<a href='logout_action.php'>Logout</a>";
+}
 ?>

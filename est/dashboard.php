@@ -16,7 +16,10 @@ $conn = mysqli_connect(DB_SERVER,DB_USERNAME,DB_PASSWORD,DB_DATABASE);
 $nameee = $_SESSION['user'];
 $sql = "SELECT * FROM account WHERE name='$nameee';";
 $sql1 = "SELECT * FROM account WHERE role = 'ewa';";
-
+$sqlcheck = "SELECT  FROM account WHERE name = '$nameee';";
+$check = 0;
+$result = mysqli_query($conn, $sqlcheck);
+$mail;
 
 #HEADER---------------------------------------------------------------------
 
@@ -32,12 +35,14 @@ if (mysqli_num_rows($result) > 0) {
         #echo "id: " . $row["email"]."<br>". "pass: " . $row["pass"]. "<br>";
         echo "Name: ". $row["name"]."<br>";
         echo "Role: ". $row["role"]."<br>";
+        $email = $row["email"];
     }
     
 } 
 else {
     echo "ERROR";
 }
+
 #---------------------------------------------------------------------------
 
 #SELECTION CHECK------------------------------------------------------------
@@ -62,7 +67,6 @@ if (mysqli_num_rows($result1) > 0) {
         echo $row["name"];
         echo "</td>";
         echo "<td>";
-
 if($row["fgd"] == 0){
 echo "Not yet FGD.";
 }
@@ -78,20 +82,22 @@ echo "Reject Interview";
 }
 else if($row["interview"]==2){
 echo "Accept Interview";
+
 }
 echo "</td>";
 }
 if($row["fgd"] == 0){
 echo "<td><form action='status_action.php' method='post'>
-<input type='hidden' name='mail' value='"; $row["email"]; echo "'>
+<input type='hidden' name='mail' value='"; $email; echo "'>
 <input type='radio' name='fgdd' value='1'>Reject FGD<br>
 <input type='radio' name='fgdd' value='2'>Accept FGD<br>
+<input type='hidden' name='intvv' value='0'>
 <input type='submit'>
 </td>";  
 }
 if($row["fgd"] == 1 || $row["fgd"] == 2){
 echo "<td><form action='status_action.php' method='post'>
-<input type='hidden' name='mail' value='"; $row["email"]; echo "'>
+<input type='hidden' name='mail' value='"; $email; echo "'>
 <input type='radio' name='intvv' value='1'>Reject Interview<br>
 <input type='radio' name='intvv' value='2'>Accept Interview<br>
 <input type='submit'>
@@ -104,6 +110,7 @@ else if($row["interview"] == 1 || $row["interview"] == 2)
 else {
     echo "ERROR";
 }
+
 
 echo "</tr></table>";
 
